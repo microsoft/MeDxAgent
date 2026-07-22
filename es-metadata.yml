@@ -1,0 +1,12 @@
+schemaVersion: 1.0.0
+providers:
+- provider: InventoryAsCode
+  version: 1.0.0
+  metadata:
+    isProduction: true
+    accountableOwners:
+      service: a1b2c3d4-1234-abcd-9876-543210fedcba
+    routing:
+      defaultAreaPath:
+        org: mohitj
+        path: PreConsultationBot

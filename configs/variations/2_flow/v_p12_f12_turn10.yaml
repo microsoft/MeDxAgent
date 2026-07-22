@@ -1,0 +1,43 @@
+# Variation: P12 + F12 turn10 (F1 + F2 combined)
+# Base: v_p12
+# F1: no early stopping (runs all 20 rounds regardless of confidence).
+# F2: differential Q from round 10 onward (diagnosis reasoning passed in).
+# Achieved by setting high_confidence_threshold to 105 (unreachable).
+
+name: v_p12_f12_turn10
+description: "P12 base + F12 (F1 no-early-stopping + F2 differential Q from round 10)"
+workflow_type: dialog_only_diff
+
+agents:
+  - patient_agent
+  - doctor_q_agent
+  - doctor_q_diff_agent
+  - diagnosis_dialog_agent
+  - judge_agent
+
+max_rounds: 20
+high_confidence_threshold: 105
+
+# Prompt flags (best prompt config from P experiments)
+pass_turn_info: true
+ask_demographics_first: true
+pass_reasoning_to_diff: true
+pass_asked_questions: false
+
+# Flow flags
+diff_start_round: 10
+
+
+# Per-agent model overrides. Uncomment and edit to swap individual agents off
+# the default (gpt-4o on OpenAI). patient_agent and judge_agent are intentionally
+# omitted as they are not part of the evaluation — keep them on the default model.
+# agent_models:
+#   doctor_q_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
+#   doctor_q_diff_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
+#   diagnosis_dialog_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning

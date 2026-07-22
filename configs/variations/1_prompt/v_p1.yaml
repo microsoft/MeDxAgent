@@ -1,0 +1,34 @@
+# Variation: P1 (turn info ON)
+# Only turn info is enabled; demographics first is OFF
+
+name: v_p1
+description: "Turn info enabled, no demographics first, non-differential"
+workflow_type: dialog_only
+
+agents:
+  - patient_agent
+  - doctor_q_agent
+  - diagnosis_dialog_agent
+  - judge_agent
+
+max_rounds: 20
+high_confidence_threshold: 95
+num_cases: 
+
+# Variation flags
+pass_turn_info: true
+ask_demographics_first: false
+pass_reasoning_to_diff: false
+pass_asked_questions: false
+
+
+# Per-agent model overrides. Uncomment and edit to swap individual agents off
+# the default (gpt-4o on OpenAI). patient_agent and judge_agent are intentionally
+# omitted as they are not part of the evaluation — keep them on the default model.
+# agent_models:
+#   doctor_q_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
+#   diagnosis_dialog_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning

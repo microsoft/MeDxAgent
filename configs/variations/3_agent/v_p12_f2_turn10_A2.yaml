@@ -1,0 +1,50 @@
+# Variation: P12 + F2 turn10 + A2 (Specialist Ensemble)
+# Base: v_p12_f2_turn10 ; adds specialist ensemble from round 10
+# Every round (10+): 9 specialist + 1 general diagnosis agents run sequentially
+# Results merged by specialist_ensemble_agent into final 3 predictions
+
+name: v_p12_f2_turn10_A2
+description: "P12 + F2 turn10 base with specialist ensemble from round 10"
+workflow_type: dialog_only_diff
+
+agents:
+  - patient_agent
+  - doctor_q_agent
+  - doctor_q_diff_agent
+  - diagnosis_dialog_agent
+  - specialist_ensemble_agent
+  - judge_agent
+
+max_rounds: 20
+high_confidence_threshold: 95
+
+# Prompt flags (best prompt config from P experiments)
+pass_turn_info: true
+ask_demographics_first: true
+pass_reasoning_to_diff: true
+pass_asked_questions: false
+
+# Flow flags
+diff_start_round: 10
+
+# Specialist Ensemble (A3b)
+use_specialist_ensemble: true
+specialist_start_round: 10
+
+
+# Per-agent model overrides. Uncomment and edit to swap individual agents off
+# the default (gpt-4o on OpenAI). patient_agent and judge_agent are intentionally
+# omitted as they are not part of the evaluation — keep them on the default model.
+# agent_models:
+#   doctor_q_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
+#   doctor_q_diff_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
+#   diagnosis_dialog_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
+#   specialist_ensemble_agent:
+#     provider: grok
+#     model: grok-4-1-fast-non-reasoning
